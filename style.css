@@ -1,0 +1,197 @@
+/* ================================
+   Unix Shell Simulator v5
+   Scrollbar-Free + Modern Layout
+================================== */
+
+:root {
+  --bg-color: radial-gradient(circle at 30% 20%, #0c1015, #070a0e 85%);
+  --accent1: #00ffcc;
+  --accent2: #00d4ff;
+  --text-light: #e6edf3;
+  --error: #ff5555;
+  --terminal-bg: rgba(13, 17, 23, 0.8);
+  --border-glow: rgba(0, 255, 204, 0.4);
+  --shadow: 0 0 25px rgba(0, 255, 204, 0.15);
+}
+
+/* GLOBAL RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* 🚫 Removes scrollbars */
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-light);
+  font-family: 'Fira Code', monospace;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 30px;
+}
+
+/* HEADER */
+.header {
+  text-align: center;
+  margin-bottom: 16px;
+  animation: fadeIn 1.5s ease;
+}
+.title-glow {
+  font-size: 2.5rem;
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 25px rgba(0, 255, 204, 0.4);
+}
+.subtitle {
+  font-size: 1rem;
+  opacity: 0.85;
+}
+
+/* TERMINAL BOX */
+.terminal {
+  width: 90%;
+  max-width: 900px;
+  height: 540px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1.5px solid var(--border-glow);
+  background: var(--terminal-bg);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow);
+  animation: floatGlow 4s infinite ease-in-out;
+}
+
+/* Terminal Header */
+.terminal-header {
+  background: rgba(20, 24, 30, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 15px;
+  border-bottom: 1px solid rgba(0,255,204,0.25);
+}
+
+.buttons .btn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 6px;
+  transition: transform 0.2s ease;
+}
+.close { background-color: #ff5f56; }
+.minimize { background-color: #ffbd2e; }
+.maximize { background-color: #27c93f; }
+.buttons .btn:hover { transform: scale(1.2); }
+
+.title {
+  flex: 1;
+  text-align: center;
+  color: #9da5b4;
+  font-size: 0.9rem;
+}
+
+.controls button {
+  background: transparent;
+  border: none;
+  color: var(--accent1);
+  cursor: pointer;
+  font-size: 1.1rem;
+  margin-left: 8px;
+  transition: transform 0.2s ease;
+}
+.controls button:hover { transform: scale(1.2); color: var(--accent2); }
+
+/* Terminal Body */
+.terminal-body {
+  flex: 1;
+  padding: 18px 22px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  line-height: 1.5;
+  font-size: 0.97rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  scrollbar-width: none; /* Hide scrollbar in Firefox */
+}
+.terminal-body::-webkit-scrollbar { display: none; } /* Hide scrollbar in Chrome */
+
+.output {
+  animation: fadeIn 0.4s ease;
+  margin-bottom: 6px;
+}
+.output.error { color: var(--error); }
+.welcome { text-align: left; margin-top: 0; }
+.welcome p { margin: 3px 0; }
+
+/* Input Line */
+.input-line {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  background: rgba(22, 27, 34, 0.95);
+  border-top: 1px solid rgba(0,255,204,0.3);
+}
+.prompt {
+  color: var(--accent1);
+  font-weight: 600;
+  margin-right: 8px;
+  animation: pulse 2s infinite;
+}
+.input-line input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-light);
+  font-family: 'Fira Code', monospace;
+  font-size: 1rem;
+  outline: none;
+}
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #a9b2be;
+}
+.footer strong {
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.university {
+  color: var(--accent1);
+  font-size: 0.95rem;
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pulse { 0%, 100% { text-shadow: 0 0 8px var(--accent1); } 50% { text-shadow: 0 0 16px var(--accent2); } }
+@keyframes floatGlow {
+  0%, 100% { box-shadow: 0 0 25px rgba(0, 255, 204, 0.15); }
+  50% { box-shadow: 0 0 35px rgba(0, 255, 204, 0.4); }
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .terminal { height: 480px; }
+  .header h1 { font-size: 2rem; }
+}
+@media (max-width: 480px) {
+  .terminal { height: 440px; }
+  .footer { font-size: 0.8rem; }
+}
